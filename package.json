@@ -1,0 +1,23 @@
+{
+  "name": "climblib",
+  "version": "1.0.0",
+  "description": "An application for documenting climbing routes.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+	"watch": "jest --watchAll *.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ghidalgo93/ClimbLib.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ghidalgo93/ClimbLib/issues"
+  },
+  "homepage": "https://github.com/ghidalgo93/ClimbLib#readme",
+  "devDependencies": {
+    "jest": "^26.6.1"
+  }
+}
