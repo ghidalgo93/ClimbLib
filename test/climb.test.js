@@ -1,7 +1,7 @@
 const Climb = require('../src/climb');
 
 it('basic creation', () => {
-	const climb = new Climb('test.name', 'test.grade', 'test.location', 'test.date', 'test.type', 'test.sent')
+	const climb = new Climb('test.name', 'test.grade', 'test.location', 'test.date', 'test.type', 'test.sent');
 	expect(climb.name).toBe('test.name');
 	expect(climb.grade).toBe('test.grade');
 	expect(climb.location).toBe('test.location');
