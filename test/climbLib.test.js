@@ -1,8 +1,7 @@
-// const Climbs = require('../src/climbs');
 const ClimbLib = require('../src/climbLib');
 const Climb = require('../src/climb');
 
-describe('Testing the functionality, this is a climblibrary', () => {
+describe('Testing the functionality of the climbLib object', () => {
 	let climbLib, testClimb1, testClimb2;
 	beforeEach(function(){
 		climbLib = new ClimbLib();
