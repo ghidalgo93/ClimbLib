@@ -39,25 +39,27 @@ ClimbLib.prototype.notSend = function(index){
 
 // const DomManipulation = require('./html');
 // **************************************
-function DomManipulation(){}
+function DomManipulation(climbLib){
+	this.climb = new Climb();
+	this.headings = Object.keys(this.climb);
+	this.climbLib = climbLib;
+}
 
-DomManipulation.prototype.createTable = function(headings){
-	let table = document.createElement('table');
-	table.id = 'climbTable';
-	let thead = table.createTHead(); 	
+DomManipulation.prototype.createTableHead = function(){
+	let thead = document.createElement('thead');
 	let row = thead.insertRow();
-	for (let key of headings){
+	for (let key of this.headings){
 		let thCell = document.createElement('th');
 		let text = document.createTextNode(key);
 		thCell.appendChild(text);
 		row.appendChild(thCell);
 	}
-	return table;
+	return thead;
 }
 
-DomManipulation.prototype.createTableBody = function(climbLib){
+DomManipulation.prototype.createTableBody = function(){
 	let tbody = document.createElement('tbody');
-	let lib = climbLib.getLib();
+	let lib = this.climbLib.getLib();
 	for (let climb of lib){
 		let row = tbody.insertRow();
 		let values = Object.values(climb);
@@ -68,28 +70,28 @@ DomManipulation.prototype.createTableBody = function(climbLib){
 			row.appendChild(tdCell);
 		}
 	}
-
 	return tbody;
+}
+
+DomManipulation.prototype.createTable = function(){
+	let table = document.createElement('table');
+	table.id = 'climbTable';
+	let thead = this.createTableHead();
+	let tbody = this.createTableBody();
+	table.appendChild(thead);
+	table.appendChild(tbody);
+	return table;
 }
 
 
 //*******SCRIPT*********//
-const ogClimb = new Climb();
-const headings = Object.keys(ogClimb);
 
 const climbLib = new ClimbLib();
-const climb1 = new Climb('test.name1', 'test.grade1', 'test.location1', 'test.date1', 'test.type1', false);
-const climb2 = new Climb('test.name2', 'test.grade2', 'test.location2', 'test.date2', 'test.type2', true);
-climbLib.addClimb(climb1);
-climbLib.addClimb(climb2);
 
 const body = document.querySelector('body');
-const Dom = new DomManipulation();
-const table = Dom.createTable(headings);
+const Dom = new DomManipulation(climbLib);
+const table = Dom.createTable();
 body.appendChild(table);
-table.appendChild(Dom.createTableBody(climbLib));
-
-
 
 module.exports.Climb = Climb;
 module.exports.ClimbLib = ClimbLib;

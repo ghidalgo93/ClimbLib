@@ -11,19 +11,17 @@ const DomManipulation = require('../src/main').DomManipulation; //while I figure
 describe('Testing DOM manipulation', function(){
 	let Dom, climb, climbLib, props;
 	beforeEach(function(){
-		Dom = new DomManipulation();
 		climb1 = new Climb('test.name1', 'test.grade1', 'test.location1', 'test.date1', 'test.type1', false);
 		climb2 = new Climb('test.name2', 'test.grade2', 'test.location2', 'test.date2', 'test.type2', true);
 		climbLib = new ClimbLib();
 		climbLib.addClimb(climb1);
 		climbLib.addClimb(climb2);
 		props = Object.keys(climb1);
+		Dom = new DomManipulation(climbLib);
 	})
 
-	it('should return table with table header given array of headings', function(){
-		const table = document.createElement('table');
-		table.id = 'climbTable';
-		const thead = table.createTHead();
+	it('should return a thead', function(){
+		const thead = document.createElement('thead');
 		const row = thead.insertRow();
 		for (let key of props){
 			let thCell = document.createElement('th');
@@ -31,13 +29,12 @@ describe('Testing DOM manipulation', function(){
 			thCell.appendChild(text);
 			row.appendChild(thCell);
 		}
-		expect(Dom.createTable(props)).toEqual(table);
+		expect(Dom.createTableHead()).toEqual(thead)
 	})
 
-	it('should return tablebody given climbLib', function(){
+	it('should return tablebody filled with the climbLib', function(){
 		const tbody = document.createElement('tbody');
 		let lib = climbLib.getLib();
-
 		for (let climb of lib){
 			let row = tbody.insertRow();
 			let values = Object.values(climb);
@@ -47,8 +44,20 @@ describe('Testing DOM manipulation', function(){
 				tdCell.appendChild(text);
 				row.appendChild(tdCell);
 			}
+			row.dataset.index = lib.indexOf(climb);
 		}
-		expect(Dom.createTableBody(climbLib)).toEqual(tbody);
+		//########TODO expect row of one to equal specific index:     expect(tbody.childNodes)
+		expect(Dom.createTableBody()).toEqual(tbody);
 	});
+
+	it('should return table', function(){
+		const table = document.createElement('table');
+		table.id = 'climbTable';
+		const thead = Dom.createTableHead();
+		const tbody = Dom.createTableBody();
+		table.appendChild(thead);
+		table.appendChild(tbody);
+		expect(Dom.createTable()).toEqual(table);
+	})
 
 })
