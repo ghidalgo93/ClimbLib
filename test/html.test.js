@@ -9,58 +9,46 @@ const DomManipulation = require('../src/main').DomManipulation; //while I figure
 
 
 describe('Testing DOM manipulation', function(){
-	let Dom, climb, climbLib;
+	let Dom, climb, climbLib, props;
 	beforeEach(function(){
 		Dom = new DomManipulation();
-		climb = new Climb('test.name1', 'test.grade1', 'test.location1', 'test.date1', 'test.type1', false);
+		climb1 = new Climb('test.name1', 'test.grade1', 'test.location1', 'test.date1', 'test.type1', false);
+		climb2 = new Climb('test.name2', 'test.grade2', 'test.location2', 'test.date2', 'test.type2', true);
 		climbLib = new ClimbLib();
+		climbLib.addClimb(climb1);
+		climbLib.addClimb(climb2);
+		props = Object.keys(climb1);
 	})
 
-	it('should initialize HTML form and table', function(){
-		const form = document.createElement('form');
-		form.id = 'addClimbForm';
+	it('should return table with table header given array of headings', function(){
 		const table = document.createElement('table');
 		table.id = 'climbTable';
-		expect(Dom.init().form).toEqual(form);
-		expect(Dom.init().table).toEqual(table);
-
+		const thead = table.createTHead();
+		const row = thead.insertRow();
+		for (let key of props){
+			let thCell = document.createElement('th');
+			let text = document.createTextNode(key);
+			thCell.appendChild(text);
+			row.appendChild(thCell);
+		}
+		expect(Dom.createTable(props)).toEqual(table);
 	})
 
-	it('should create an input element with default parameters left out', function(){
-		const input = document.createElement('input');
-		input.name = '';
-		input.placeholder = '';
-		input.type = 'text';
-		input.value = '';
-		input.maxLength = '200';
-		input.required = 'required';
-		expect(Dom.createInput()).toEqual(input);
-	})
+	it('should return tablebody given climbLib', function(){
+		const tbody = document.createElement('tbody');
+		let lib = climbLib.getLib();
 
-	it('should create an input element with all parameters provided', function(){
-		const input = document.createElement('input');
-		input.name = 'testName';
-		input.placeholder = 'testPlaceholder';
-		input.type = 'testText';
-		input.value = 'testValue'
-		input.maxLength = '200';
-		input.required = 'required';
-		expect(Dom.createInput('testName', 'testPlaceholder', 'testText', 'testValue', '200', 'required')).toEqual(input);
-	})
-
-	it('should create a label element with a select child with N options', function(){
-		const label = document.createElement('label');
-		label.for = 'testFor';
-		const select = document.createElement('select');
-		select.id = 'testID';
-		select.name = 'testName';
-		const option1 = document.createElement('option');
-		option1.value = 'option1';
-		const option2 = document.createElement('option');
-		option2.value = 'option2';
-		label.appendChild(select);
-		select.appendChild(option1);
-		select.appendChild(option2);
-	})
+		for (let climb of lib){
+			let row = tbody.insertRow();
+			let values = Object.values(climb);
+			for (let value of values){
+				let tdCell = document.createElement('td');
+				let text = document.createTextNode(value);
+				tdCell.appendChild(text);
+				row.appendChild(tdCell);
+			}
+		}
+		expect(Dom.createTableBody(climbLib)).toEqual(tbody);
+	});
 
 })
