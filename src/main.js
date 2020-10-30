@@ -1,5 +1,3 @@
-// Main js script
-
 //import modules
 // const Climb = require('./climb');
 // **************************************
@@ -45,28 +43,53 @@ function DomManipulation(){}
 
 DomManipulation.prototype.init = function(){
 	const form = document.createElement('form');
-	form.id = 'addClimbForm';
-	const input = document.createElement('input');
-	input.id = 'addClimbInput';
-	form.appendChild(input);
-
 	const table = document.createElement('table');
+	form.id = 'addClimbForm';
 	table.id = 'climbTable';
 	return {
 		form, table
 	}
 }
 
+DomManipulation.prototype.createInput = function(name='', placeholder='', type='text', value='', maxlength='200', required='required'){
+	const input = document.createElement('input');
+	input.name = name;
+	input.placeholder = placeholder;
+	input.type = type;
+	input.value = value;
+	input.maxLength = maxlength;
+	input.required = required;
+	return input;
+}
+
 
 
 //*******SCRIPT*********//
-const body = document.querySelector('body');
 
-const Dom = new DomManipulation();
-Dom.init();
+module.exports.Climb = Climb;
+module.exports.ClimbLib = ClimbLib;
+module.exports.DomManipulation = DomManipulation;
 
-console.log(Dom.init().form)
-console.log(Dom.init().table)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

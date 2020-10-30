@@ -1,5 +1,8 @@
-const ClimbLib = require('../src/climbLib');
-const Climb = require('../src/climb');
+// const ClimbLib = require('../src/climbLib');
+// const Climb = require('../src/climb');
+const ClimbLib = require('../src/main').ClimbLib; //while I figure out modules, I'm combining them
+const Climb = require('../src/main').Climb; //while I figure out modules, I'm combining them
+
 
 describe('Testing the functionality of the climbLib object', () => {
 	let climbLib, testClimb1, testClimb2;

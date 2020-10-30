@@ -6,6 +6,30 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
+	<h1>Welcome to Your ClimbLib</h1>
+	<form id="climbForm">
+		<input type="text" name="name" placeholder="Route Name" maxlength="200" required>
+		<input type="text" name="grade" placeholder="Grade" maxlength="200" required>
+		<input type="text" name="location" placeholder="Location" maxlength="200" required>
+		<input type="date" name="date" required>
+		<label for="type">Type
+			<select id="type" name="type">
+				<option value="sport" selected>Sport</option>
+				<option value="trad">Trad</option>
+				<option value="mixed">Mixed</option>
+				<option value="boulder">Boulder</option>
+			</select>
+		</label>
+		<label for="sent">Sent
+			<select id="sent" name="sent">
+				<option value=true selected>Yes</option>
+				<option value=false>No</option>
+			</select>
+		</label>
+		<input type="reset">
+		<input type="submit" value="Add CLimb"></input>
+	</form>
+	<table id="climbTbl"></table>
 	<script src="main.js"></script>
 </body>
 </html>

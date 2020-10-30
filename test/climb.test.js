@@ -1,4 +1,5 @@
-const Climb = require('../src/climb');
+// const Climb = require('../src/climb');
+const Climb = require('../src/main').Climb; //while I figure out modules, I'm combining them
 
 it('basic creation', () => {
 	const climb = new Climb('test.name', 'test.grade', 'test.location', 'test.date', 'test.type', 'test.sent');
